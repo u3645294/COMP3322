@@ -13,11 +13,10 @@ The guideline requires a `proposal/Proposal.md` file at the **team repository ro
 
 | Member | Full name | Student number | Planned role |
 |---|---|---|---|
-| 1 | `<name>` | `<number>` | Frontend & UI |
-| 2 | `<name>` | `<number>` | Backend & authentication |
-| 3 | `<name>` | `<number>` | Database & recipe matching |
-| 4 | `<name>` | `<number>` | Integration, testing & deployment |
-| 5, if applicable | `<name>` | `<number>` | `<redistribute responsibilities>` |
+| 1 | `Yuk Ki Ao` | `3036452948` | Frontend + Database |
+| 2 | `<name>` | `<number>` |  |
+| 3 | `<name>` | `<number>` |  |
+| 4 | `<name>` | `<number>` |  |
 
 ## 2. Project Introduction [Required Proposal Section]
 
