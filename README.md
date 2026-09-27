@@ -13,7 +13,7 @@ The guideline requires a `proposal/Proposal.md` file at the **team repository ro
 
 | Member | Full name | Student number | Planned role |
 |---|---|---|---|
-| 1 | `Yuk Ki Ao` | `3036452948` | Frontend + Database |
+| 1 | `Yuk Ki Ao` | `3036452948` | Database + Recipe Matching + (frontend?) |
 | 2 | `<name>` | `<number>` |  |
 | 3 | `<name>` | `<number>` |  |
 | 4 | `<name>` | `<number>` |  |
