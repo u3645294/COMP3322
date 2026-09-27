@@ -3,7 +3,7 @@
 > Planning skeleton only. Unchecked items are work to complete, not claims of implemented features.
 > Based on [COMP3322 Project Guideline](../COMP3322%20Project%20Guideline.pdf), especially Sections 2, 4, and 5. Existing design reference: [Architecture Plan](ARCHITECTURE_PLAN.md).
 
-### !!! Alpha version materials must be submitted 48 hrs before interview !!! 
+# !!! Alpha version materials must be submitted 48 hrs before interview !!! 
 
 ## 1. Proposal File & Team Information
 
