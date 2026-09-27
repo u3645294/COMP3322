@@ -5,6 +5,9 @@
 
 # !!! Alpha version materials must be submitted **48 hrs** before interview !!! 
 
+## [google dock link](https://docs.google.com/document/u/0/d/1A5FribgNd7YC6cMoXIYNz_VXJqIdd8Jw2hA-Gpjb2Kg/mobilebasic)
+
+
 ## 1. Proposal File & Team Information
 
 The guideline requires a `proposal/Proposal.md` file at the **team repository root**. This README is the working plan; use the sections below to prepare that submission.
