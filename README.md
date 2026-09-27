@@ -3,6 +3,8 @@
 > Planning skeleton only. Unchecked items are work to complete, not claims of implemented features.
 > Based on [COMP3322 Project Guideline](../COMP3322%20Project%20Guideline.pdf), especially Sections 2, 4, and 5. Existing design reference: [Architecture Plan](ARCHITECTURE_PLAN.md).
 
+!!! Alpha version materials must be submitted 48 hrs before interview !!! 
+
 ## 1. Proposal File & Team Information
 
 The guideline requires a `proposal/Proposal.md` file at the **team repository root**. This README is the working plan; use the sections below to prepare that submission.
@@ -152,24 +154,7 @@ All routes below use the proposed `/api/v1` prefix.
 - [ ] Plan parameterized database queries, password hashing and secret configuration.
 - [ ] Build the API skeleton and connect a subset of core features end-to-end for alpha.
 
-## 8. Preliminary Task Allocation [Required Proposal Section]
-
-Replace member labels with real names and agree on responsibilities. Redistribute tasks if there are five members.
-
-| Owner | Planned responsibilities | Alpha evidence to prepare |
-|---|---|---|
-| Member 1 | Page layouts, routing, pantry/discovery/detail UI, API client | Explain UI state and frontend requests |
-| Member 2 | Express skeleton, auth, pantry routes, errors and validation | Explain route/controller/service logic |
-| Member 3 | MySQL schema, migrations/seeds, repositories, basic matching | Explain relationships, queries and ranking |
-| Member 4 | Integration, Compose/deployment planning, verification, proposal coordination | Explain end-to-end flow and own code contributions |
-| Member 5, if applicable | `<agreed modules and shared work>` | `<own implemented feature/code>` |
-
-- [ ] Assign owners and reviewers for each alpha feature.
-- [ ] Agree on API contracts before frontend/backend implementation.
-- [ ] Record genuine individual contributions through commits and pull requests.
-- [ ] Ensure every member can explain their implemented features and code.
-
-## 9. Anticipated Learning Challenges & Self-assessment [Required Proposal Section]
+## 8. Anticipated Learning Challenges & Self-assessment [Required Proposal Section]
 
 Choose **2–3 realistic challenges** reflecting the team's actual experience. Replace these examples after discussion.
 
@@ -181,11 +166,8 @@ Choose **2–3 realistic challenges** reflecting the team's actual experience. R
 
 - [ ] Confirm 2–3 challenges and one practical response to each in the proposal.
 
-## 10. Alpha Delivery & Interview Checklist
+## 9. Alpha Delivery & Interview Checklist
 
-**Dates in the provided guideline:** booking opens **28 September 2026**; interviews are **2 or 9 October 2026, 12:00–12:50** during tutorials. Each interview lasts approximately **8–10 minutes**. Confirm the latest Moodle announcements and the assigned slot.
-
-- [ ] Book the interview slot on Moodle and record: `<date/time>`.
 - [ ] Complete `proposal/Proposal.md`, including every required section above.
 - [ ] Implement the complete core database schema and connect it to the backend.
 - [ ] Build the REST API skeleton.
@@ -193,14 +175,13 @@ Choose **2–3 realistic challenges** reflecting the team's actual experience. R
 - [ ] Provide corresponding frontend pages for every implemented alpha feature.
 - [ ] Commit and push all alpha source code to the team GitHub repository.
 - [ ] Tag the alpha version; record the chosen tag and commit: `<tag / SHA>`.
-- [ ] Submit the source-code ZIP to Moodle **before the interview start time**.
 - [ ] Rehearse the demo and prepare every member to answer questions about features and code.
 
 **Suggested alpha demo:** sign in (if included) → add a pantry ingredient → refresh to show persistence → request basic matches → open a recipe and explain its ingredients/steps.
 
 **Interview grading note:** absence/failure to book, an unsatisfactory explanation, or no Moodle submission can incur up to a 5% deduction per version from the project mark. Interview deductions are individual; missing submission applies to the whole group.
 
-## 11. Later Milestones & Other Course Requirements
+## 10. Later Milestones & Other Course Requirements
 
 These are future planning reminders; they are not all alpha deliverables.
 
@@ -213,7 +194,7 @@ These are future planning reminders; they are not all alpha deliverables.
 - [ ] Do not reuse code from outside this course or other work/courses; each member is responsible for committed work.
 - [ ] Prepare the final presentation off script, using slides as visual prompts rather than full-sentence scripts.
 
-## 12. Decisions to Resolve Before Finalizing the Proposal
+## 11. Decisions to Resolve Before Finalizing the Proposal
 
 - [ ] Confirm team members, role assignments, repository root and GitHub URL.
 - [ ] Freeze must-have scope and select the alpha feature subset.
