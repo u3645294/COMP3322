@@ -45,10 +45,10 @@ Keep exactly two feature categories in the proposal. Confirm this draft before c
 
 ### Nice-to-have — Optional After All Must-haves
 
-- [ ] Decide whether to include AI recipe generation with a catalog fallback.
-- [ ] Decide whether to include expiry reminders or expiry-aware ranking.
-- [ ] Decide whether to include a shopping list for missing ingredients.
-- [ ] Decide whether to include ratings/comments, OAuth2 login, or admin tools.
+- [ ] AI recipe generation with a catalog fallback
+- [ ] expiry reminders or expiry-aware ranking
+- [ ] shopping list for missing ingredients
+- [ ] additional: ratings/comments? forum for sharing recipies?
 
 **Complexity rationale:** `<Explain how ingredient normalization, relational data, dietary filtering, and explainable recipe ranking go beyond simple CRUD.>` The guideline's complexity examples are suggestions, not mandatory checkboxes; OAuth2 is a bonus.
 
