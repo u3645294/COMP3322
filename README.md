@@ -7,7 +7,6 @@
 
 The guideline requires a `proposal/Proposal.md` file at the **team repository root**. This README is the working plan; use the sections below to prepare that submission.
 
-- [ ] Confirm the team repository root and GitHub URL: `<URL>`.
 - [ ] Create `proposal/Proposal.md` in that repository and complete all required proposal sections.
 - [ ] Confirm project title: **PantryChef** (working title).
 - [ ] Fill in all 4–5 members' full names and student numbers in the proposal.
