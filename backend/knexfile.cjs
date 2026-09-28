@@ -19,10 +19,12 @@ module.exports = {
       database: process.env.DB_NAME
     },
     migrations: {
-      directory: "./src/db/migrations"
+      directory: "./src/db/migrations",
+      loadExtensions: [".js", ".cjs"]
     },
     seeds: {
-      directory: "./src/db/seeds"
+      directory: "./src/db/seeds",
+      loadExtensions: [".js", ".cjs"]
     }
   },
 
@@ -33,10 +35,12 @@ module.exports = {
       database: process.env.DB_TEST_NAME
     },
     migrations: {
-      directory: "./src/db/migrations"
+      directory: "./src/db/migrations",
+      loadExtensions: [".js", ".cjs"]
     },
     seeds: {
-      directory: "./src/db/seeds"
+      directory: "./src/db/seeds",
+      loadExtensions: [".js", ".cjs"]
     }
   }
 };
