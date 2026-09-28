@@ -23,6 +23,8 @@ The guideline requires a `proposal/Proposal.md` file at the **team repository ro
 | 3 | `<name>` | `<number>` |  |
 | 4 | `<name>` | `<number>` |  |
 
+Roles: all frontend pages, backend APIs, DB
+
 ## 2. Project Introduction [Required Proposal Section]
 
 **One-paragraph description draft:** PantryChef is a responsive web application that helps students and busy households decide what to cook using ingredients they already have. Users manage their pantry, select cooking preferences, and receive ranked recipe suggestions showing available ingredients, missing items, and cooking instructions. The application aims to reduce food waste and the time spent choosing meals.
