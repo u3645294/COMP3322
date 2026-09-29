@@ -7,9 +7,10 @@ export function errorHandler(error, request, response, next) {
 
   const status = error.status ?? error.statusCode ?? 500;
   const code = error.code ?? "INTERNAL_ERROR";
-  const message = status >= 500
-    ? "An unexpected error occurred."
-    : error.message ?? "Request failed.";
+  const message =
+    status >= 500
+      ? "An unexpected error occurred."
+      : error.message ?? "Request failed.";
 
   if (status >= 500) {
     console.error(`[${request.method} ${request.originalUrl}]`, error);
