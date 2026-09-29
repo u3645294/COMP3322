@@ -9,6 +9,7 @@ import {
   searchRouter,
   searchHistoryRouter
 } from "../modules/search/search.routes.js";
+import { favoriteRouter } from "../modules/favorites/favorite.routes.js";
 
 export const apiRouter = Router();
 
@@ -20,4 +21,5 @@ apiRouter.use("/dietary-rules", dietaryRuleRouter);
 apiRouter.use("/recipes", recipeRouter);
 apiRouter.use("/search", searchRouter);
 apiRouter.use("/search-history", searchHistoryRouter);
+apiRouter.use("/favorites", favoriteRouter);
 
