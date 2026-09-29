@@ -3,10 +3,13 @@ import { app } from "../src/app.js";
 import { database } from "../src/db/database.js";
 
 /**
- * Wipe tables in FK-safe order.
- * Only touches user-created data, never seed data.
+ * Wipe user-owned tables in FK-safe order.
+ * Recipes and ingredients are seed data, not user data — never deleted.
  */
 export async function truncateAll() {
+  await database("search_results").del();
+  await database("search_history").del();
+  await database("favorites").del();
   await database("user_dietary_rules").del();
   await database("pantry_items").del();
   await database("sessions").del();
@@ -31,9 +34,7 @@ export async function registerUser(overrides = {}) {
   };
 
   const agent = request.agent(app);
-  const response = await agent
-    .post("/api/v1/auth/register")
-    .send(payload);
+  const response = await agent.post("/api/v1/auth/register").send(payload);
 
   if (response.status !== 201) {
     throw new Error(
@@ -50,7 +51,39 @@ export async function registerUser(overrides = {}) {
 export async function anyIngredientId() {
   const row = await database("ingredients").select("id").orderBy("id").first();
   if (!row) {
-    throw new Error("No ingredients in test DB. Run the seed first.");
+    throw new Error("No ingredients in test DB. Run `npm run test:seed`.");
+  }
+  return row.id;
+}
+
+/**
+ * Look up a specific ingredient by canonical name. Throws if not found.
+ */
+export async function findIngredientIdByName(name) {
+  const row = await database("ingredients")
+    .select("id")
+    .where({ canonical_name: name })
+    .first();
+  if (!row) {
+    throw new Error(
+      `Ingredient not in test DB: "${name}". Run \`npm run test:seed\`.`
+    );
+  }
+  return row.id;
+}
+
+/**
+ * Look up a specific recipe by exact title. Throws if not found.
+ */
+export async function findRecipeIdByTitle(title) {
+  const row = await database("recipes")
+    .select("id")
+    .where({ title })
+    .first();
+  if (!row) {
+    throw new Error(
+      `Recipe not in test DB: "${title}". Run \`npm run test:seed\`.`
+    );
   }
   return row.id;
 }
