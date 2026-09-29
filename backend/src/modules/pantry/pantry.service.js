@@ -52,4 +52,11 @@ export async function deleteItem(userId, id) {
     throw new NotFoundError("Pantry item not found.");
   }
 }
+/**
+ * Exported for the search module (recipe matching).
+ * Same as listItems but named per the agreed interface.
+ */
+export async function getUserPantry(userId) {
+  return pantryRepo.listByUser(userId);
+}
 
