@@ -29,7 +29,15 @@ export function validate(schemas) {
         continue;
       }
 
-      request[source] = parsed.data;
+      // Express 5 defines req.query as a getter-only property, so plain
+      // assignment throws. defineProperty replaces the accessor with a
+      // plain writable value.
+      Object.defineProperty(request, source, {
+        value: parsed.data,
+        writable: true,
+        enumerable: true,
+        configurable: true
+      });
     }
 
     if (Object.keys(errors).length > 0) {
