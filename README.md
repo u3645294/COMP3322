@@ -49,6 +49,8 @@ Keep exactly two feature categories in the proposal. Confirm this draft before c
 - [ ] Confirm saving/removing favorite recipes.
 - [ ] Confirm revisiting previous searches through history.
 - [ ] Confirm responsive pages and client/server input validation.
+- [ ] Remove ingredients after users cooked the food
+- [ ] Additional information about the recipe: Servings, difficulty, time required
 
 ### Nice-to-have — Optional After All Must-haves
 
