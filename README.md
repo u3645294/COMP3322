@@ -18,7 +18,7 @@ The guideline requires a `proposal/Proposal.md` file at the **team repository ro
 
 | Member | Full name | Student number | Planned role |
 |---|---|---|---|
-| 1 | `Yuk Ki Ao` | `3036452948` | ER Diagram + Recipe Matching + AI integration |
+| 1 | `Yuk Ki Ao` | `3036452948` | ER Diagram + Recipe Matching + AI integration + Recipe generation |
 | 2 | `Li Yiting` | `3036406119` | Platform, Database, Authentication, and Pantry |
 | 3 | `<name>` | `<number>` |  |
 | 4 | `<name>` | `<number>` |  |
