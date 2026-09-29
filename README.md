@@ -20,7 +20,7 @@ The guideline requires a `proposal/Proposal.md` file at the **team repository ro
 |---|---|---|---|
 | 1 | `Yuk Ki Ao` | `3036452948` | ER Diagram + Recipe Matching + AI integration + Recipe,tag generation |
 | 2 | `Li Yiting` | `3036406119` | Platform, Database, Authentication, and Pantry |
-| 3 | `<name>` | `<number>` |  |
+| 3 | `Ou Yang Bing` | `3036393099` | Website UIIX design |
 | 4 | `<name>` | `<number>` |  |
 
 Roles: all frontend pages, backend APIs, DB
