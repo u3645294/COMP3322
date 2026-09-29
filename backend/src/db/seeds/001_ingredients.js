@@ -74,7 +74,12 @@ const INGREDIENTS = [
 ];
 
 export async function seed(knex) {
-  // Repeatable: clear aliases first (FK), then ingredients.
+  // Repeatable: clear dependent rows first (FK-safe order), then ingredients.
+  //
+  // recipe_ingredients references ingredients with ON DELETE RESTRICT,
+  // so it must be cleared before ingredients. The recipe seed (which runs
+  // after this one, alphabetically) will repopulate recipe_ingredients.
+  await knex("recipe_ingredients").del();
   await knex("ingredient_aliases").del();
   await knex("ingredients").del();
 
