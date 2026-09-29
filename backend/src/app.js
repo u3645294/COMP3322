@@ -6,6 +6,7 @@ import morgan from "morgan";
 import rateLimit from "express-rate-limit";
 
 import { env } from "./config/env.js";
+import { sessionMiddleware } from "./config/session.js";
 import { apiRouter } from "./routes/index.js";
 import { notFound } from "./middleware/not-found.js";
 import { errorHandler } from "./middleware/error-handler.js";
@@ -43,9 +44,13 @@ app.use(
   })
 );
 
+// Session middleware (writes to MySQL sessions table).
+app.use(sessionMiddleware);
+
 // API routes.
 app.use("/api/v1", apiRouter);
 
 // 404 + error handling — must be last.
 app.use(notFound);
 app.use(errorHandler);
+
