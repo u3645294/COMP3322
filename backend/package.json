@@ -4,14 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "vitest run",
+    "test": "npm run test:db && vitest run",
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
     "test:watch": "vitest",
     "migrate": "knex --knexfile knexfile.cjs migrate:latest",
     "migrate:rollback": "knex --knexfile knexfile.cjs migrate:rollback",
     "migrate:list": "knex --knexfile knexfile.cjs migrate:list",
-    "seed": "knex --knexfile knexfile.cjs seed:run"
+    "seed": "knex --knexfile knexfile.cjs seed:run",
+    "test:db": "knex --knexfile knexfile.cjs --env test migrate:latest",
+    "test:db:rollback": "knex --knexfile knexfile.cjs --env test migrate:rollback",
+    "test:watch:db": "knex --knexfile knexfile.cjs --env test migrate:latest && vitest",
+    "test:seed": "knex --knexfile knexfile.cjs --env test seed:run"
   },
   "keywords": [],
   "author": "",

@@ -17,7 +17,7 @@ export function toSafeUser(user) {
   };
 }
 
-function normalizeEmail(email) {
+export function normalizeEmail(email) {
   return email.trim().toLowerCase();
 }
 
@@ -47,6 +47,7 @@ export async function login({ email, password }) {
   const genericFailure = new AuthenticationError("Invalid email or password.");
 
   if (!user) {
+    // Still run a bcrypt compare to keep timing similar.
     await bcrypt.compare(password, "$2b$12$invalidinvalidinvalidinvalidinvalidinvalidinvalid");
     throw genericFailure;
   }
