@@ -42,13 +42,13 @@ Keep exactly two feature categories in the proposal. Confirm this draft before c
 ### Must-have — Proposed Core Scope
 
 - [ ] Confirm registration, login, and logout.
-- [ ] Confirm pantry ingredient creation, viewing, editing, and deletion.
+- [x] Confirm pantry ingredient creation, viewing, editing, and deletion.
 - [ ] Confirm recipe search using pantry ingredients and cooking/dietary filters.
-- [ ] Confirm ingredient matching and ranking with available/missing ingredient explanations.
-- [ ] Confirm recipe details and ordered cooking instructions.
+- [x] Confirm ingredient matching and ranking with available/missing ingredient explanations.
+- [x] Confirm recipe details and ordered cooking instructions.
 - [ ] Confirm saving/removing favorite recipes.
 - [ ] Confirm revisiting previous searches through history.
-- [ ] Confirm responsive pages and client/server input validation.
+- [x] Confirm responsive pages and client/server input validation.
 - [ ] Remove ingredients after users cooked the food
 - [ ] Additional information about the recipe: Servings, difficulty, time required
 
