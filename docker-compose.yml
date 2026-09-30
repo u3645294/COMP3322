@@ -1,0 +1,60 @@
+services:
+  db:
+    image: mysql:8.4
+    container_name: pantrychef-db
+    restart: unless-stopped
+
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - pantrychef_mysql_data:/var/lib/mysql
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "mysqladmin ping -h localhost -uroot -p$${MYSQL_ROOT_PASSWORD} --silent"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+  backend:
+    build:
+      context: ./backend
+
+    container_name: pantrychef-backend
+    restart: unless-stopped
+
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN}
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME}
+      DB_TEST_NAME: ${DB_TEST_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      SESSION_SECRET: ${SESSION_SECRET}
+      SESSION_COOKIE_NAME: ${SESSION_COOKIE_NAME}
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+    ports:
+      - "3000:3000"
+
+volumes:
+  pantrychef_mysql_data:
+
