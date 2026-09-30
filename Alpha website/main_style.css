@@ -1,0 +1,351 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Google Sans', sans-serif;
+}
+
+body {
+    background-image: url("background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.app {
+    display: flex;
+    width: 100%;
+    min-height: calc(100vh - 40px);
+    gap: 20px;
+}
+
+.main-content {
+    flex: 1;
+    background: #f0f0f0;
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.avaliable-dishes{
+    margin-bottom: 20px;
+}
+
+.dishes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+}
+
+@media (max-width: 1000px) {
+    .dishes-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .dishes-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.recipe-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.recipe-card:hover {
+    transform: translateY(-5px);
+}
+
+.recipe-card .card-photo {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    background-color: #e0e0e0;
+}
+
+.recipe-card .card-body {
+    padding: 16px;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.recipe-card .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.recipe-card .card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: #555;
+}
+
+.recipe-card .badge {
+    background: #f2f2f2;
+    padding: 3px 8px;
+    border-radius: 999px;
+}
+
+.recipe-card .badge.difficulty.easy   { background: #e3f4e6; color: #2e7d32; }
+.recipe-card .badge.difficulty.medium { background: #fdf2e0; color: #b06a00; }
+.recipe-card .badge.difficulty.hard   { background: #fdecea; color: #c0392b; }
+
+.recipe-card .match {
+    font-size: 0.85rem;
+    color: #444;
+}
+
+.recipe-card .match-bar {
+    height: 6px;
+    background: #eee;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 4px;
+}
+
+.recipe-card .match-fill {
+    height: 100%;
+    background: #2e7d32;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.recipe-card .missing {
+    font-size: 0.78rem;
+    color: #999;
+}
+
+.sidebar {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    padding: 24px;
+    width: 320px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+}
+
+.sidebar-title {
+    font-family: "Dancing Script", cursive;
+    font-size: 2rem;
+    text-align: center;
+    color: #bf370f;
+}
+
+.ingredient-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.form-row label {
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.ingredient-form input,
+.ingredient-form select {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    width: 100%;
+}
+
+.amount-row {
+    display: flex;
+    gap: 8px;
+}
+
+.amount-row input {
+    flex: 1;
+}
+
+.amount-row select {
+    width: 90px;
+}
+
+.btn-primary {
+    background: #ff7045;
+    color: #fff;
+    border: none;
+    padding: 10px 14px;
+    margin-top: 10px;
+    border-radius: 18px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.btn-primary:hover {
+    background: #e65c3c;
+}
+
+.pantry-list-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.list-heading {
+    font-size: 1rem;
+    color: #444;
+    margin: 12px 0 6px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 4px;
+}
+
+.pantry-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.pantry-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f7f7f7;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 0.9rem;
+}
+
+.pantry-item .info {
+    display: flex;
+    flex-direction: column;
+}
+
+.pantry-item .name {
+    font-weight: 600;
+    color: #222;
+}
+
+.pantry-item .amount {
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.remove-controls {
+    display: flex;
+    gap: 4px;
+}
+
+.pantry-item button.remove-amount,
+.pantry-item button.remove-all {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.pantry-item button.remove-amount {
+    color: #b06a00;
+}
+
+.pantry-item button.remove-amount:hover {
+    background: #fdf2e0;
+}
+
+.pantry-item button.remove-all {
+    color: #c0392b;
+    font-size: 0.9rem;
+}
+
+.pantry-item button.remove-all:hover {
+    background: #fdecea;
+}
+
+/* ---- Combo box (search + dropdown) ---- */
+.combo {
+    position: relative;
+}
+
+.combo input[type="text"] {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    width: 100%;
+}
+
+.combo input[type="text"]:disabled {
+    background: #f0f0f0;
+    cursor: not-allowed;
+}
+
+.combo-options {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    max-height: 220px;
+    overflow-y: auto;
+    z-index: 20;
+}
+
+.combo-options.hidden {
+    display: none;
+}
+
+.combo-options li {
+    padding: 8px 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.combo-options li:hover,
+.combo-options li.active {
+    background: #eef4ff;
+}
+
+.combo-options li.no-match {
+    color: #999;
+    cursor: default;
+    font-style: italic;
+}
+
+@media (max-width: 720px) {
+    .app {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        max-height: none;
+    }
+}

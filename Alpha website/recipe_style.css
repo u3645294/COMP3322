@@ -1,0 +1,314 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Google Sans', sans-serif;
+}
+
+body {
+    background: #f4f4f4;
+    min-height: 100vh;
+}
+
+.top-banner {
+    position: relative;
+    width: 100%;
+    min-height: 320px;         
+    background-size: cover;
+    background-position: center;
+    background-color: #333;
+    display: flex;           
+    flex-direction: column;
+    justify-content: flex-end; 
+    padding: 80px 40px 32px;    
+    box-sizing: border-box;
+}
+
+.top-banner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.25) 0%,
+        rgba(0, 0, 0, 0.75) 100%
+    );
+    pointer-events: none;
+}
+
+.banner-content {
+    position: relative;       
+    z-index: 2;
+    color: #fff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+    max-width: 720px;
+}
+
+.back-btn {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 18px;
+    backdrop-filter: blur(6px);
+    transition: background 0.2s, transform 0.2s;
+}
+
+.back-btn:hover {
+    background: rgba(0, 0, 0, 0.75);
+    transform: translateY(-1px);
+}
+
+
+.recipe-name {
+    font-family: "Dancing Script", cursive;
+    font-size: 3rem;
+    line-height: 1.1;
+    margin-bottom: 8px;
+}
+
+.recipe-desc {
+    font-size: 0.95rem;
+    max-width: 640px;
+    line-height: 1.5;
+    opacity: 0.95;
+}
+
+.recipe-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.badge {
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-shadow: none;
+}
+
+.badge.difficulty.easy   { background: #e3f4e6; color: #2e7d32; }
+.badge.difficulty.medium { background: #fdf2e0; color: #b06a00; }
+.badge.difficulty.hard   { background: #fdecea; color: #c0392b; }
+
+.page-body {
+    max-width: 1000px;
+    margin: 20px auto 40px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    padding: 24px 28px;
+}
+
+.card h2 {
+    font-size: 1.15rem;
+    color: #bf370f;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.match-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.match-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.match-percent {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #2e7d32;
+}
+
+.match-percent.partial { color: #b06a00; }
+.match-percent.none    { color: #c0392b; }
+
+.match-summary {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.match-bar {
+    height: 10px;
+    background: #eee;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.match-fill {
+    height: 100%;
+    background:#66bb6a;
+    width: 0%;
+    transition: width 0.4s ease;
+}
+
+.match-fill.partial { background:#ffc077; }
+.match-fill.none    { background: #ef9a9a; }
+
+.match-note {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.ingredient-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ingredient-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: #f8f8f8;
+    font-size: 0.95rem;
+    transition: background 0.15s ease;
+}
+
+.ingredient-list li.ok      { background: #eef7ef; }
+.ingredient-list li.missing { background: #fdf1f0; }
+
+.ingredient-list .left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ingredient-list .status {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.ingredient-list li.ok      .status { background: #2e7d32; }
+.ingredient-list li.missing .status { background: #c0392b; }
+
+.ingredient-list .ing-name {
+    font-weight: 600;
+    color: #222;
+}
+
+.ingredient-list .ing-amount {
+    color: #666;
+    font-size: 0.85rem;
+    text-align: right;
+}
+
+.ingredient-list .have {
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+.steps-list {
+    padding-left: 0;
+    list-style: none;
+    counter-reset: step;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.steps-list li {
+    counter-increment: step;
+    position: relative;
+    padding: 12px 16px 12px 52px;
+    background: #fff8ec;
+    border-radius: 8px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.steps-list li::before {
+    content: counter(step);
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #ffb74d;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.not-found {
+    max-width: 500px;
+    margin: 120px auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.not-found h1 {
+    color: #bf370f;
+    margin-bottom: 12px;
+}
+
+.not-found p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.not-found a {
+    color: #ff7045;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+@media (max-width: 720px) {
+    .top-banner { height: 260px; }
+    .recipe-name { font-size: 2.1rem; }
+    .page-body { margin: 20px auto 30px; }
+    .card { padding: 18px 20px; }
+    .ingredient-list li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+    .ingredient-list .ing-amount { text-align: left; }
+}
