@@ -90,6 +90,122 @@ Example search response:
 }
 ```
 
+### Alpha SQL recipe matcher (`recipe_script.js`)
+
+**Header overview:**
+```js
+await window.match_recipe(client_obj, preference_list, dietary_rule_obj)
+```
+
+**Accepted parameters**
+
+| Parameter | Accepted structure |
+|---|---|
+| `client_obj` | `{ pantry, not_allowed, liked_recipe_ids }` |
+| `preference_list` | `{ ingredient_ids: [...], tags: [...] }` or a mixed array such as `[1, "quick"]`. Optional. |
+| `dietary_rule_obj` | `{ ruleType, ruleValue }` or `{ rules: [...] }`. Optional. |
+
+`client_obj` contains:
+
+```js
+{
+  pantry: [
+    {
+      ingredient_id: 1, // or name: "tomato"
+      amount: 3,
+      unit: "piece",
+      expires_on: null // optional YYYY-MM-DD
+    }
+  ],
+  not_allowed: {
+    ingredient_ids: [8],
+    tags: ["seafood"]
+  },
+  liked_recipe_ids: [7, 12]
+}
+```
+
+Omitted pantry data comes from localStorage. Exclusions and liked IDs default to empty lists.
+
+`liked_recipe_ids` must contain positive integer IDs from the database's `recipes.id` column. Both `recipes[].recipeId` and `likedRecipes[].recipeId` return those same database IDs. The matcher does not use the demo `RECIPES` array's string IDs (such as `"tomato-egg"`), array indexes, or TheMealDB source IDs. Unknown database IDs are omitted from the fallback list.
+
+`preference_list` contains preferred ingredients and recipe tags:
+
+```js
+{
+  ingredient_ids: [1, 3],
+  tags: ["quick", "italian"]
+}
+```
+
+It also accepts a mixed array:
+
+```js
+[1, 3, "quick", "italian"]
+```
+
+`dietary_rule_obj` accepts a single rule:
+
+```js
+{
+  ruleType: "allergy",
+  ruleValue: "butter"
+}
+```
+
+For multiple rules, use a `rules` array:
+
+```js
+{
+  rules: [
+    { ruleType: "diet", ruleValue: "vegetarian" },
+    { ruleType: "allergy", ruleValue: "butter" },
+    { ruleType: "excluded_ingredient", ruleValue: "mushroom" }
+  ]
+}
+```
+
+Dietary rule types are `"diet"`, `"allergy"` and `"excluded_ingredient"`. Saved rules from the logged-in user are always applied alongside supplied rules.
+
+**Return data structure**
+
+Returns a promise resolving to the match obj:
+
+When matches exist:
+
+```js
+{
+  status: true,
+  recipes: [
+    {
+      recipeId: 7,
+      title: "Tomato Pasta",
+      missingIngredients: {
+        "12": { amount: 50, unit: "g" }
+      },
+      tags: ["perfect match", "suits your flavour"],
+      recommendIndex: 120
+    }
+  ]
+}
+```
+
+`missingIngredients` is keyed by ingredient ID, `tags` explains the match, and `recommendIndex` is its ranking score. Results are ordered by score and limited to 20.
+
+When no matches exist, "status" is set to false and returns most liked recipies:
+
+```js
+{
+  status: false,
+  recipes: [],
+  likedRecipes: [
+    { recipeId: 12, title: "Favourite Recipe" }
+  ]
+}
+```
+
+The fallback list also respects dietary rules and exclusions and may be empty. Invalid input, missing login or unsuccessful requests cause the function to throw an error.
+
 ### Favorites, history, and dietary preferences (beta core)
 
 All routes in this section require authentication.
