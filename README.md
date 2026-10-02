@@ -48,10 +48,10 @@ Keep exactly two feature categories in the proposal. Confirm this draft before c
 - [ ] Confirm recipe search using pantry ingredients and cooking/dietary filters.
 - [x] Confirm ingredient matching and ranking with available/missing ingredient explanations.
 - [x] Confirm recipe details and ordered cooking instructions.
-- [ ] Confirm saving/removing favorite recipes.
-- [ ] Confirm revisiting previous searches through history.
+- [x] Confirm saving/removing favorite recipes.
+- [x] Confirm revisiting previous searches through history.
 - [x] Confirm responsive pages and client/server input validation.
-- [ ] Remove ingredients after users cooked the food
+- [x] Remove ingredients after users cooked the food
 - [ ] Additional information about the recipe: Servings, difficulty, time required
 
 ### Nice-to-have — Optional After All Must-haves
