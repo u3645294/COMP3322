@@ -141,3 +141,59 @@ function escapeHtml(str) {
         '"': '&quot;', "'": '&#39;'
     }[c]));
 }
+
+// SQL matching is performed by the recipe-matches endpoint. client_obj may contain pantry,
+// not_allowed and liked_recipe_ids; preference_list may contain
+// ingredient_ids and tags, or be a list of ingredient IDs and tag names
+// A pantry entry accepts ingredient_id or name
+// Saved rules are loaded from the authenticated session by the backend
+// optional dietary_rule_obj adds a {ruleType, ruleValue} or {rules: [...]} object.
+// This function is deliberately separate from the local demo recipe display:
+// RECIPES uses string IDs that do not correspond to the database recipe IDs.
+// recipes[].recipeId, likedRecipes[].recipeId and liked_recipe_ids always use
+// the numeric recipes.id from MySQL; no demo IDs or array indexes are mapped.
+async function match_recipe(client_obj, preference_list = {},
+    dietary_rule_obj = client_obj?.dietary_rules ?? { rules: [] }) {
+    const client = client_obj || {};
+    const preferences = Array.isArray(preference_list) ? {
+        ingredient_ids: preference_list.filter(Number.isInteger),
+        tags: preference_list.filter(value => typeof value === 'string')
+    } : preference_list;
+    const pantry = (client.pantry || loadPantry()).map(item => ({
+        ingredient_id: item.ingredient_id ?? item.ingredientId,
+        name: item.name,
+        amount: item.amount ?? item.quantity,
+        unit: item.unit,
+        expires_on: item.expires_on ?? item.expiresOn ?? null
+    }));
+    const body = {
+        client_obj: {
+            pantry,
+            not_allowed: client.not_allowed || { ingredient_ids: [], tags: [] },
+            liked_recipe_ids: client.liked_recipe_ids || []
+        },
+        preference_list: {
+            ingredient_ids: preferences.ingredient_ids || [],
+            tags: preferences.tags || []
+        },
+        dietary_rules: dietary_rule_obj
+    };
+    const localHost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+    const apiBase = window.PANTRYCHEF_API_BASE ??
+        (window.location.protocol === 'file:' ? 'http://localhost:3000' :
+         localHost && window.location.port !== '3000'
+            ? `http://${window.location.hostname}:3000` : '');
+    const response = await fetch(`${apiBase}/api/v1/recipe-matches`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(body)
+    });
+    const result = await response.json();
+    if (!response.ok) {
+        throw new Error(result.error?.message || `Recipe matching failed (${response.status})`);
+    }
+    return result.match;
+}
+
+window.match_recipe = match_recipe;
