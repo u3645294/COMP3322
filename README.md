@@ -1,5 +1,7 @@
 # PantryChef — Project Proposal & Alpha TODO
 
+The collected 100-recipe CSV and database import instructions are in [backend/data/README.md](backend/data/README.md). From `backend`, run `npm run recipes:validate` to check the balanced dataset and `npm run recipes:import` to load it after configuring MySQL and running migrations.
+
 > Planning skeleton only. Unchecked items are work to complete, not claims of implemented features.
 > Based on [COMP3322 Project Guideline](../COMP3322%20Project%20Guideline.pdf), especially Sections 2, 4, and 5. Existing design reference: [Architecture Plan](ARCHITECTURE_PLAN.md).
 
@@ -21,7 +23,7 @@ The guideline requires a `proposal/Proposal.md` file at the **team repository ro
 | 1 | `Yuk Ki Ao` | `3036452948` | ER Diagram + Recipe Matching + AI integration + Recipe,tag generation |
 | 2 | `Li Yiting` | `3036406119` | Platform, Database, Authentication, and Pantry |
 | 3 | `Ou Yang Bing` | `3036393099` | Website UIIX design |
-| 4 | `Esohe Osaghae` | `3036718574` | Backend Schema: Ingredients, Favorites, History, Preferences |
+| 4 | `Esohe Osaghae` | `3036718574` | Backend Schema: Ingredient, Recipe Search, Favorites, History, Preferences |
 
 Roles: all frontend pages, backend APIs, DB
 
