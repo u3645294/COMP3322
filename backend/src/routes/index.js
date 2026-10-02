@@ -10,6 +10,7 @@ import {
   searchHistoryRouter
 } from "../modules/search/search.routes.js";
 import { favoriteRouter } from "../modules/favorites/favorite.routes.js";
+import { recipeMatchRouter } from "../modules/recipe-match/recipe-match.routes.js";
 
 export const apiRouter = Router();
 
@@ -22,4 +23,4 @@ apiRouter.use("/recipes", recipeRouter);
 apiRouter.use("/search", searchRouter);
 apiRouter.use("/search-history", searchHistoryRouter);
 apiRouter.use("/favorites", favoriteRouter);
-
+apiRouter.use("/recipe-matches", recipeMatchRouter);
