@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const RULE_TYPES = ["diet", "allergy", "excluded_ingredient"];
 
-const ruleSchema = z
+export const dietaryRuleSchema = z
   .object({
     ruleType: z
       .string()
@@ -19,7 +19,7 @@ const ruleSchema = z
 
 export const replaceDietaryRulesSchema = z.object({
   rules: z
-    .array(ruleSchema)
+    .array(dietaryRuleSchema)
     .max(50, "At most 50 rules allowed.")
     .refine(
       (rules) => {
@@ -34,4 +34,3 @@ export const replaceDietaryRulesSchema = z.object({
       { message: "Duplicate rules are not allowed." }
     )
 });
-
