@@ -1,0 +1,196 @@
+.topnav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 12px 28px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.topnav .nav-brand {
+    font-family: "Dancing Script", cursive;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #bf370f;
+    text-decoration: none;
+    margin-right: 8px;
+    white-space: nowrap;
+}
+
+.topnav .nav-tabs {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 4px;
+    flex: 1;                    
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.topnav .nav-tabs a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #555;
+    text-decoration: none;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.topnav .nav-tabs a:hover {
+    background: #f5f0ec;
+    color: #bf370f;
+}
+
+.topnav .nav-tabs a.active {
+    background: #ff7045;
+    color: #fff;
+}
+
+.topnav .nav-user {
+    position: relative;
+}
+
+.user-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px 6px 6px;
+    background: transparent;
+    border: 1px solid #e5e5e5;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #444;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.user-btn:hover {
+    background: #f7f7f7;
+    border-color: #ccc;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #aaaaaa;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.user-name {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.user-caret {
+    font-size: 0.7rem;
+    color: #888;
+    transition: transform 0.15s ease;
+}
+
+.nav-user.open .user-caret {
+    transform: rotate(180deg);
+}
+
+.user-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 120px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 6px;
+    list-style: none;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+}
+
+.nav-user.open .user-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.user-menu li a,
+.user-menu li button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 9px 12px;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: #333;
+    text-decoration: none;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.user-menu li a:hover,
+.user-menu li button:hover {
+    background: #f5f0ec;
+}
+
+.user-menu li.logout button {
+    justify-content: center;
+    font-weight: 600;
+    color: #c0392b;
+}
+
+.user-menu li.logout button:hover {
+    background: #fdecea;
+}
+
+.user-menu .divider {
+    height: 1px;
+    background: #eee;
+    margin: 6px 4px;
+}
+
+@media (max-width: 720px) {
+    .topnav {
+        padding: 10px 16px;
+        gap: 12px;
+    }
+    .topnav .nav-brand {
+        font-size: 1.3rem;
+    }
+    .topnav .nav-tabs a .label {
+        display: none;         /* keep only the icon */
+    }
+    .topnav .nav-tabs a {
+        padding: 8px 12px;
+    }
+    .user-name {
+        display: none;
+    }
+}

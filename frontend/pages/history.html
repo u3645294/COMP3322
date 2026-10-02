@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>History — Pantry Chef</title>
+
+        <link rel="stylesheet" href="../css/navbar.css">
+        <link rel="stylesheet" href="../css/main_style.css">
+        <link rel="stylesheet" href="../css/history.css">
+
+        <script src="../js/recipes.js"        defer></script>
+        <script src="../js/favourites.js"     defer></script>
+        <script src="../js/history.js"        defer></script>
+        <script src="../js/history_script.js" defer></script>
+        <script src="../js/navbar.js"         defer></script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <nav class="topnav">
+            <a href="main.html" class="nav-brand">Pantry Chef</a>
+
+            <ul class="nav-tabs">
+                <li><a href="main.html"><span class="label">Pantry</span></a></li>
+                <li><a href="explore.html"><span class="label">Explore</span></a></li>
+                <li><a href="favourites.html"><span class="label">Favourites</span></a></li>
+                <li><a href="history.html"><span class="label">History</span></a></li>
+            </ul>
+
+            <div class="nav-user">
+                <button class="user-btn" type="button">
+                    <span class="user-avatar">G</span>
+                    <span class="user-name">Guest</span>
+                    <span class="user-caret">▾</span>
+                </button>
+                <ul class="user-menu">
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="favourites.html">My favourites</a></li>
+                    <li><div class="divider"></div></li>
+                    <li class="logout"><button class="logout-btn" type="button">Log out</button></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="history-page">
+            <header class="page-head">
+                <button id="clear-history" class="clear-btn" type="button">
+                    Clear history
+                </button>
+            </header>
+
+            <div class="dishes-grid" id="history-container">
+                <!-- Filled by history_script.js -->
+            </div>
+
+            <div class="empty-state" id="history-empty" hidden>
+                <p class="empty-emoji">🍳</p>
+                <h2>Nothing viewed yet</h2>
+                <p>Recipes you've viewed will appear here.</p>
+                <a href="main.html" class="btn-primary">Browse recipes</a>
+            </div>
+        </main>
+    </body>
+</html>
