@@ -3,48 +3,53 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Login</title>
-        
+        <title>Sign up — Pantry Chef</title>
+
         <link rel="stylesheet" href="../css/login_style.css">
-        
-        <script src="../js/login_script.js" defer></script>
-    
+
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+
+        <script src="../js/config.js" defer></script>
+        <script src="../js/api.js" defer></script>
+        <script src="../js/login_script.js" defer></script>
+        <link rel="stylesheet" href="../css/api-ui.css">
     </head>
     <body>
         <div class="login-container">
             <form id="signup-form" class="signup-form">
                 <h2 class="logo">Pantry Chef</h2>
+                <div class="form-group"><label for="display-name">Display name</label><input id="display-name" name="displayName" maxlength="100" autocomplete="nickname" required></div>
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input 
-                        type="text"
-                        id="username" 
-                        name="username" 
+                    <label for="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email" maxlength="255" autocomplete="email"
                         required
                     >
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input 
+                    <input
                         type="password"
-                        id="password" 
-                        name="password" 
+                        id="password"
+                        name="password" minlength="8" maxlength="128" autocomplete="new-password"
                         required
                     >
                 </div>
                 <div class="form-group">
                     <label for="confirm-password">Confirm Password</label>
-                    <input 
+                    <input
                         type="password"
-                        id="confirm-password" 
-                        name="confirm-password" 
+                        id="confirm-password"
+                        name="confirm-password" autocomplete="new-password"
                         required
                     >
                 </div>
                 <button class="btn-primary" type="submit">Create account</button>
+            <p id="auth-status" role="status" aria-live="polite"></p><p><button type="button" id="check-health">Check connection</button> <span id="health-status" role="status"></span></p>
             </form>
         </div>
     </body>

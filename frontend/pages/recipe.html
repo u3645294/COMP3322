@@ -8,17 +8,19 @@
         <link rel="stylesheet" href="../css/recipe_style.css">
         <link rel="stylesheet" href="../css/navbar.css">
 
-        <script src="../js/recipes.js"       defer></script>
-        <script src="../js/favourites.js"    defer></script>
-        <script src="../js/history.js"       defer></script>
-        <script src="../js/recipe_script.js" defer></script>
-        <script src="../js/navbar.js"        defer></script>
-
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+
+        <script src="../js/config.js" defer></script>
+        <script src="../js/api.js" defer></script>
+        <script src="../js/ui.js" defer></script>
+        <script src="../js/recipe_script.js" defer></script>
+        <script src="../js/navbar.js" defer></script>
+        <link rel="stylesheet" href="../css/api-ui.css">
     </head>
     <body>
+        <p id="page-status" class="api-status" role="status" aria-live="polite"></p>
         <nav class="topnav">
             <a href="main.html" class="nav-brand">Pantry Chef</a>
 
@@ -37,6 +39,7 @@
                 </button>
 
                 <ul class="user-menu">
+                    <li><a href="explore.html#preferences">Preferences</a></li>
                     <li class="logout">
                         <button class="logout-btn" type="button">
                             Log out

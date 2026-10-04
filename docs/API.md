@@ -1,5 +1,7 @@
 # PantryChef API Documentation
 
+See [Frontend API integration](../frontend/FRONTEND_API_INTEGRATION.md) for page locations, browser function signatures, required inputs, setup, and the Alpha SQL matcher (`POST /recipe-matches`).
+
 **Base URL:** `http://localhost:3000/api/v1`
 
 All endpoints return JSON. Authenticated endpoints use cookie-based sessions.
@@ -745,6 +747,7 @@ curl -i -b cookies.txt -X DELETE http://localhost:3000/api/v1/favorites/66
 | GET | `/favorites` | ✓ | 200 |
 | POST | `/favorites` | ✓ | 201 / 200 |
 | DELETE | `/favorites/:recipeId` | ✓ | 204 |
+| POST | `/recipe-matches` | ✓ | 200 |
 
 ## End-to-end example
 
@@ -794,4 +797,3 @@ rm -f cookies.txt
 - Timestamps are ISO 8601 UTC strings.
 - All IDs are positive integers. Never assume they start at 1 — seed IDs advance on each reseed.
 - The API is prefixed with `/api/v1`. Breaking changes will bump the version.
-

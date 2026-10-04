@@ -1,14 +1,16 @@
 import { database } from "../../db/database.js";
 
 const ITEM_COLUMNS = [
-  "id",
-  "user_id as userId",
-  "ingredient_id as ingredientId",
-  "quantity",
-  "unit",
-  "expires_on as expiresOn",
-  "created_at as createdAt",
-  "updated_at as updatedAt"
+  "pantry_items.id",
+  "pantry_items.user_id as userId",
+  "pantry_items.ingredient_id as ingredientId",
+  "pantry_items.quantity",
+  "pantry_items.unit",
+  "pantry_items.expires_on as expiresOn",
+  "pantry_items.created_at as createdAt",
+  "pantry_items.updated_at as updatedAt",
+  "ingredients.canonical_name as canonicalName",
+  "ingredients.category"
 ];
 
 function normalizeItem(row) {
@@ -28,17 +30,19 @@ function normalizeItem(row) {
 
 export async function listByUser(userId) {
   const rows = await database("pantry_items")
+    .join("ingredients", "ingredients.id", "pantry_items.ingredient_id")
     .select(ITEM_COLUMNS)
-    .where({ user_id: userId })
-    .orderBy("created_at", "desc");
+    .where({ "pantry_items.user_id": userId })
+    .orderBy("pantry_items.created_at", "desc");
 
   return rows.map(normalizeItem);
 }
 
 export async function findById(userId, id) {
   const row = await database("pantry_items")
+    .join("ingredients", "ingredients.id", "pantry_items.ingredient_id")
     .select(ITEM_COLUMNS)
-    .where({ user_id: userId, id })
+    .where({ "pantry_items.user_id": userId, "pantry_items.id": id })
     .first();
 
   return normalizeItem(row);
@@ -46,8 +50,9 @@ export async function findById(userId, id) {
 
 export async function findByUserAndIngredient(userId, ingredientId) {
   const row = await database("pantry_items")
+    .join("ingredients", "ingredients.id", "pantry_items.ingredient_id")
     .select(ITEM_COLUMNS)
-    .where({ user_id: userId, ingredient_id: ingredientId })
+    .where({ "pantry_items.user_id": userId, "pantry_items.ingredient_id": ingredientId })
     .first();
 
   return normalizeItem(row);
@@ -90,4 +95,3 @@ export async function updateItem(userId, id, data) {
 export async function deleteItem(userId, id) {
   return database("pantry_items").where({ user_id: userId, id }).del();
 }
-

@@ -2,14 +2,14 @@ import { readFileSync } from "node:fs";
 import vm from "node:vm";
 import { describe, it, expect, vi } from "vitest";
 
-const source = readFileSync(new URL("../../../frontend/js/recipe_script.jss", import.meta.url), "utf8");
+const source = readFileSync(new URL("../../../frontend/js/api.js", import.meta.url), "utf8");
 
 function browser(recipes = []) {
   const fetch = vi.fn(async () => ({ ok: true, json: async () => ({ match: { status: true, recipes: [] } }) }));
   const context = vm.createContext({
     window: { location: { search: "", hostname: "localhost", port: "8080", protocol: "http:" } },
     document: { getElementById: () => ({ innerHTML: "" }) },
-    RECIPES: recipes, URLSearchParams, fetch,
+    RECIPES: recipes, URLSearchParams, fetch, AbortController, setTimeout, clearTimeout,
     localStorage: { getItem: () => "[]" }
   });
   vm.runInContext(source, context);

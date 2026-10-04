@@ -21,6 +21,9 @@ describe("pantry integration", () => {
     expect(response.body.data.pantryItem.ingredientId).toBe(ingredientId);
     expect(response.body.data.pantryItem.quantity).toBe(3);
     expect(response.body.data.pantryItem.unit).toBe("piece");
+    expect(response.body.data.pantryItem.canonicalName).toEqual(expect.any(String));
+    const listed = await agent.get("/api/v1/pantry-items");
+    expect(listed.body.data.pantryItems[0].canonicalName).toBe(response.body.data.pantryItem.canonicalName);
   });
 
   it("rejects a duplicate ingredient with 409", async () => {

@@ -90,7 +90,7 @@ Example search response:
 }
 ```
 
-### Alpha SQL recipe matcher (`recipe_script.js`)
+### Alpha SQL recipe matcher (`frontend/js/api.js`)
 
 **Header overview:**
 ```js
@@ -125,9 +125,9 @@ await window.match_recipe(client_obj, preference_list, dietary_rule_obj)
 }
 ```
 
-Omitted pantry data comes from localStorage. Exclusions and liked IDs default to empty lists.
+Omitted pantry data is loaded from the authenticated backend pantry. Exclusions and liked IDs default to empty lists. `window.recipe_match` is also available as an alias of `window.match_recipe`. See [Frontend API integration](frontend/FRONTEND_API_INTEGRATION.md) for implemented request/response examples, required inputs, setup, and page locations.
 
-`liked_recipe_ids` must contain positive integer IDs from the database's `recipes.id` column. Both `recipes[].recipeId` and `likedRecipes[].recipeId` return those same database IDs. The matcher does not use the demo `RECIPES` array's string IDs (such as `"tomato-egg"`), array indexes, or TheMealDB source IDs. Unknown database IDs are omitted from the fallback list.
+`liked_recipe_ids` must contain positive integer IDs from the database's `recipes.id` column. Both `recipes[].recipeId` and `likedRecipes[].recipeId` return those same database IDs. The matcher uses neither demo array IDs/indexes nor TheMealDB source IDs. Frontend pages now load real recipes from the backend. Unknown database IDs are omitted from the fallback list.
 
 `preference_list` contains preferred ingredients and recipe tags:
 

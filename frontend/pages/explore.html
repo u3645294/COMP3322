@@ -9,16 +9,19 @@
         <link rel="stylesheet" href="../css/main_style.css">
         <link rel="stylesheet" href="../css/explore.css">
 
-        <script src="../js/recipes.js"          defer></script>
-        <script src="../js/favourites.js"       defer></script>
-        <script src="../js/explore_script.js"   defer></script>
-        <script src="../js/navbar.js"           defer></script>
-
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+
+        <script src="../js/config.js" defer></script>
+        <script src="../js/api.js" defer></script>
+        <script src="../js/ui.js" defer></script>
+        <script src="../js/explore_script.js" defer></script>
+        <script src="../js/navbar.js" defer></script>
+        <link rel="stylesheet" href="../css/api-ui.css">
     </head>
     <body>
+        <p id="page-status" class="api-status" role="status" aria-live="polite"></p>
         <nav class="topnav">
             <a href="main.html" class="nav-brand">Pantry Chef</a>
 
@@ -36,7 +39,7 @@
                     <span class="user-caret">▾</span>
                 </button>
                 <ul class="user-menu">
-                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="explore.html#preferences">Preferences</a></li>
                     <li><a href="favourites.html">My favourites</a></li>
                     <li><div class="divider"></div></li>
                     <li class="logout"><button class="logout-btn" type="button">Log out</button></li>
@@ -45,9 +48,29 @@
         </nav>
 
         <main class="explore-page">
+            <section class="api-panel"><h1>Explore recipes</h1><button type="button" id="browse-recipes">Browse catalog</button>
+                <button type="button" id="saved-search">Search my pantry and save to History</button>
+                <p>Saved searches match ingredient presence. Ranked suggestions also check amounts, units, expiry, and preferences.</p>
+            </section>
             <div class="dishes-grid" id="explore-container">
                 <!-- Filled by explore_script.js -->
             </div>
+        <div class="pagination"><button type="button" id="recipes-prev" disabled>Previous</button><span id="catalog-page"></span><button type="button" id="recipes-next" disabled>Next</button></div>
+            <section class="api-panel"><h2>Ranked suggestions</h2><form id="match-form" class="api-form">
+                <p>Use ingredient IDs from your pantry search. Separate IDs or tags with commas. Leave fields blank for no preference.</p>
+                <label>Preferred ingredient IDs<input id="preferred-ids" placeholder="379, 375"></label>
+                <label>Preferred tags<input id="preferred-tags" placeholder="quick, italian"></label>
+                <label>Excluded ingredient IDs<input id="excluded-ids" placeholder="387"></label>
+                <label>Excluded tags<input id="excluded-tags" placeholder="seafood"></label>
+                <button type="submit">Find ranked suggestions</button>
+            </form><div id="search-results" class="dishes-grid"></div></section>
+            <section class="api-panel" id="preferences"><h2>Dietary preferences</h2><p>These saved rules apply to both searches. Remove all rules and save to clear them. Diet values supported by saved search: vegetarian and vegan. For allergies and exclusions, enter the canonical ingredient name.</p>
+                <ul id="rules-list"></ul><form id="rule-form" class="api-form">
+                    <label>Rule type<select id="rule-type"><option value="diet">Diet</option><option value="allergy">Allergy</option><option value="excluded_ingredient">Excluded ingredient</option></select></label>
+                    <label>Rule value<input id="rule-value" maxlength="100" required placeholder="vegetarian, peanut, mushroom"></label>
+                    <button type="submit">Add rule to draft</button>
+                </form><button type="button" id="save-rules">Save preferences</button>
+            </section>
         </main>
     </body>
 </html>

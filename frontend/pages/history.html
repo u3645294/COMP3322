@@ -9,17 +9,19 @@
         <link rel="stylesheet" href="../css/main_style.css">
         <link rel="stylesheet" href="../css/history.css">
 
-        <script src="../js/recipes.js"        defer></script>
-        <script src="../js/favourites.js"     defer></script>
-        <script src="../js/history.js"        defer></script>
-        <script src="../js/history_script.js" defer></script>
-        <script src="../js/navbar.js"         defer></script>
-
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+
+        <script src="../js/config.js" defer></script>
+        <script src="../js/api.js" defer></script>
+        <script src="../js/ui.js" defer></script>
+        <script src="../js/history_script.js" defer></script>
+        <script src="../js/navbar.js" defer></script>
+        <link rel="stylesheet" href="../css/api-ui.css">
     </head>
     <body>
+        <p id="page-status" class="api-status" role="status" aria-live="polite"></p>
         <nav class="topnav">
             <a href="main.html" class="nav-brand">Pantry Chef</a>
 
@@ -37,7 +39,7 @@
                     <span class="user-caret">▾</span>
                 </button>
                 <ul class="user-menu">
-                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="explore.html#preferences">Preferences</a></li>
                     <li><a href="favourites.html">My favourites</a></li>
                     <li><div class="divider"></div></li>
                     <li class="logout"><button class="logout-btn" type="button">Log out</button></li>
@@ -46,11 +48,7 @@
         </nav>
 
         <main class="history-page">
-            <header class="page-head">
-                <button id="clear-history" class="clear-btn" type="button">
-                    Clear history
-                </button>
-            </header>
+            <header class="page-head"><h1>Search history</h1></header>
 
             <div class="dishes-grid" id="history-container">
                 <!-- Filled by history_script.js -->
@@ -58,10 +56,11 @@
 
             <div class="empty-state" id="history-empty" hidden>
                 <p class="empty-emoji">🍳</p>
-                <h2>Nothing viewed yet</h2>
-                <p>Recipes you've viewed will appear here.</p>
-                <a href="main.html" class="btn-primary">Browse recipes</a>
+                <h2>No saved searches yet</h2>
+                <p>Run a saved pantry search in Explore to see it here.</p>
+                <a href="explore.html" class="btn-primary">Explore recipes</a>
             </div>
+        <div class="pagination"><button type="button" id="history-prev" disabled>Previous</button><span id="history-page"></span><button type="button" id="history-next" disabled>Next</button></div><section id="history-detail" class="api-panel" hidden></section>
         </main>
     </body>
 </html>

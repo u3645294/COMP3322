@@ -1,5 +1,7 @@
 # PantryChef — Project Proposal & Alpha TODO
 
+Implemented frontend API calls, required inputs, example outputs, and local setup are documented in [Frontend API integration](frontend/FRONTEND_API_INTEGRATION.md).
+
 The collected 100-recipe CSV and database import instructions are in [backend/data/README.md](backend/data/README.md). From `backend`, run `npm run recipes:validate` to check the balanced dataset and `npm run recipes:import` to load it after configuring MySQL and running migrations.
 
 > Planning skeleton only. Unchecked items are work to complete, not claims of implemented features.

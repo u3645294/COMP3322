@@ -4,34 +4,37 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Login</title>
-        
+
         <link rel="stylesheet" href="../css/login_style.css">
-        
-        <script src="../js/login_script.js" defer></script>
-    
+
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+
+        <script src="../js/config.js" defer></script>
+        <script src="../js/api.js" defer></script>
+        <script src="../js/login_script.js" defer></script>
+        <link rel="stylesheet" href="../css/api-ui.css">
     </head>
     <body>
         <div class="login-container">
             <form id="login-form" class="login-form">
                 <h2 class="logo">Pantry Chef</h2>
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input 
-                        type="text"
-                        id="username" 
-                        name="username" 
+                    <label for="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email" maxlength="255" autocomplete="email"
                         required
                     >
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input 
+                    <input
                         type="password"
-                        id="password" 
-                        name="password" 
+                        id="password"
+                        name="password" maxlength="128" autocomplete="current-password"
                         required
                     >
                 </div>
@@ -40,8 +43,9 @@
                     Don't have an account? <a href="signup.html">Sign up</a>
                 </p>
                 <p class="guest-login-link">
-                    <a href="main.html">Login as a guest</a>
+                    <a href="explore.html">Browse as a guest</a>
                 </p>
+            <p id="auth-status" role="status" aria-live="polite"></p><p><button type="button" id="check-health">Check connection</button> <span id="health-status" role="status"></span></p>
             </form>
         </div>
     </body>

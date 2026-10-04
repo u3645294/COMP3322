@@ -1,44 +1,27 @@
-(function initNavbar() {
-    const userBlock = document.querySelector('.nav-user');
-    const userBtn   = document.querySelector('.user-btn');
-    const logoutBtn = document.querySelector('.logout-btn');
-
-    if (!userBlock || !userBtn) return;
-
-    userBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        userBlock.classList.toggle('open');
+(async function () {
+    const block = document.querySelector('.nav-user');
+    const button = document.querySelector('.user-btn');
+    button.addEventListener('click', () => {
+        block.classList.toggle('open');
+        button.setAttribute('aria-expanded', String(block.classList.contains('open')));
     });
-
-    document.addEventListener('click', (e) => {
-        if (!userBlock.contains(e.target)) {
-            userBlock.classList.remove('open');
+    document.addEventListener('click', event => {
+        if (!block.contains(event.target)) {
+            block.classList.remove('open');
+            button.setAttribute('aria-expanded', 'false');
         }
     });
-
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
-            const confirmed = confirm('Log out of Pantry Chef?');
-            if (!confirmed) return;
-
-            // To be implemented: clear user session data
-
-            window.location.href = 'login.html';
-        });
-    }
-
-    const currentPath = window.location.pathname.split('/').pop() || 'main.html';
     document.querySelectorAll('.nav-tabs a').forEach(link => {
-        const href = link.getAttribute('href');
-        if (href === currentPath) {
-            link.classList.add('active');
-        }
+        link.classList.toggle('active', link.getAttribute('href') === window.location.pathname.split('/').pop());
     });
-
-    // Replace with real user data later
-    const userNameEl = document.querySelector('.user-name');
-    if (userNameEl) {
-        const stored = localStorage.getItem('username');
-        userNameEl.textContent = stored || 'Guest';
-    }
+    const state = await PantryUI.state.ready;
+    document.querySelector('.user-name').textContent = state.user?.displayName || 'Guest';
+    document.querySelector('.user-avatar').textContent = (state.user?.displayName || 'G').charAt(0).toUpperCase();
+    const logout = document.querySelector('.logout-btn');
+    logout.textContent = state.user ? 'Log out' : 'Sign in';
+    logout.addEventListener('click', () => PantryUI.action(logout, 'page-status', async () => {
+        if (state.user) await PantryAPI.logout();
+        window.location.href = 'login.html';
+    }));
+    if (state.error) PantryUI.message('page-status', state.error.message, true);
 })();
