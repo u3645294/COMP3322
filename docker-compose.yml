@@ -35,6 +35,8 @@ services:
     container_name: pantrychef-backend
     restart: unless-stopped
 
+    command: ["sh", "-c", "npm run migrate && exec npm start"]
+
     environment:
       NODE_ENV: development
       PORT: 3000
@@ -52,8 +54,18 @@ services:
       db:
         condition: service_healthy
 
+    expose:
+      - "3000"
+  
+  frontend:
+    build:
+      context: ./frontend
+
+    restart: unless-stopped
+    depends_on: 
+      - backend
     ports:
-      - "3000:3000"
+      - "3000:80"
 
 volumes:
   pantrychef_mysql_data:

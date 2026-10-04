@@ -1,7 +1,7 @@
-#copy dirs to nginx 
-FROM nginx:alpine 
+# copy dirs to nginx
+FROM nginx:alpine
 
-COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 COPY pages /usr/share/nginx/html/pages
 COPY css /usr/share/nginx/html/css
