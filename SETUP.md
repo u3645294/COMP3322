@@ -1,9 +1,10 @@
 > To be tested, not yet confirmed
 # Set up guide for Windows
 Download the following apps
-1. Docker desktop
+1. Docker Desktop
 2. Git for Windows
 3. Node.js
+4. Ubuntu
 
 ## Github
 1. Green code button
