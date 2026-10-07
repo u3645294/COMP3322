@@ -1,11 +1,41 @@
 ## High-level Workflow Description
-![Login page: User can login as a guest or their personal account](1_login.png)  
-![Signup page: User can sign up their account by clicking the sign up link](2_signup.png)  
-![Home page: Default home page of Pantry Chef](3_home.png)  
-![My pantry: User can input their ingredient and amounts into their pantry](4_pantry.png)  
-![Load recipes: The website will suggest recipes based on users' pantry](5_load.png)  
-![Recipe card: By clicking the name of the dish, users can see the details](6_recipe.png)  
-![Recipe card: The image, ingredients and steps will be shown](7_recipe.png)  
-![Explore page: Users can explore different recipes here](8_explore.png)  
-![Preferences: Users can choose their diet type and preference](9_preference.png)  
-![Favourite page: By clicking on the heart button, the card will be stored as Favourites](10_favourite.png)  
+
+Login page: User can login as a guest or their personal account
+
+![Login page](1_login.png) 
+
+Signup page: User can sign up their account by clicking the sign up link
+
+![Signup page](2_signup.png) 
+
+Home page: Default home page of Pantry Chef
+
+![Home page](3_home.png)  
+
+My pantry: User can input their ingredient and amounts into their pantry
+
+![My pantry](4_pantry.png)  
+
+Load recipes: The website will suggest recipes based on users' pantry
+
+![Load recipes](5_load.png)  
+
+Recipe card: By clicking the name of the dish, users can see the details
+
+![Recipe card](6_recipe.png)  
+
+Recipe card: The image, ingredients and steps will be shown
+
+![Recipe card](7_recipe.png)  
+
+Explore page: Users can explore different recipes here
+
+![Explore page](8_explore.png)  
+
+Preferences: Users can choose their diet type and preference
+
+![Preference](9_preference.png)  
+
+Favourite page: By clicking on the heart button, the card will be stored as Favourites
+
+![Favourite page](10_favourite.png)  
