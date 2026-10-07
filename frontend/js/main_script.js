@@ -111,14 +111,226 @@
     document.getElementById('refresh-matches').addEventListener('click', event => action(event.target, 'page-status', async () => {
         requireUser(); await loadPantry(); await loadMatches(); message('page-status', 'Suggestions updated.');
     }));
+
+    // -----------------------------
+    // Ranked suggestions
+    // -----------------------------
+
+    const split = id => [...new Set(
+        document.getElementById(id).value
+            .split(',')
+            .map(value => value.trim())
+            .filter(Boolean)
+    )];
+
+    function ids(id) {
+        const values = split(id).map(Number);
+
+        if (values.some(value =>
+            !Number.isSafeInteger(value) || value < 1
+        )) {
+            throw new Error(
+                'Ingredient IDs must be positive whole numbers, separated by commas.'
+            );
+        }
+
+        return values;
+    }
+
+    document.getElementById('match-form').addEventListener('submit', event => {
+        event.preventDefault();
+
+        action(
+            event.target.querySelector('[type="submit"]'),
+            'page-status',
+            async () => {
+                requireUser();
+
+                const result = await recipe_match(
+                    {
+                        not_allowed: {
+                            ingredient_ids: ids('excluded-ids'),
+                            tags: split('excluded-tags')
+                        },
+                        liked_recipe_ids: [...state.favorites]
+                    },
+                    {
+                        ingredient_ids: ids('preferred-ids'),
+                        tags: split('preferred-tags')
+                    }
+                );
+
+                const matched = result.status
+                    ? result.recipes
+                    : result.likedRecipes;
+
+                cards(
+                    document.getElementById('search-results'),
+                    matched,
+                    recipe => result.status
+                        ? `Score ${recipe.recommendIndex} · ${recipe.tags.join(', ')} · Missing: ${
+                            Object.entries(recipe.missingIngredients)
+                                .map(([id, item]) =>
+                                    `Ingredient #${id}: ${item.amount ?? 'unspecified'} ${item.unit || ''}`
+                                )
+                                .join('; ') || 'none'
+                        }`
+                        : 'A saved favourite to try.'
+                );
+
+                message(
+                    'page-status',
+                    result.status
+                        ? 'Ranked suggestions loaded.'
+                        : 'No matches found. Showing eligible favourites.'
+                );
+            }
+        );
+    });
+
+
+    // -----------------------------
+    // Dietary preferences
+    // -----------------------------
+
+    let rules = [];
+
+    function renderRules() {
+        document.getElementById('rules-list').innerHTML =
+            rules.map((rule, index) =>
+                `<li>
+                    ${escape(rule.ruleType)}:
+                    ${escape(rule.ruleValue)}
+                    <button
+                        type="button"
+                        data-remove-rule="${index}"
+                    >
+                        Remove
+                    </button>
+                </li>`
+            ).join('');
+    }
+
+    document.getElementById('rule-form').addEventListener('submit', event => {
+        event.preventDefault();
+
+        const rule = {
+            ruleType: document.getElementById('rule-type').value,
+            ruleValue: document.getElementById('rule-value').value.trim()
+        };
+
+        if (
+            rules.some(
+                item =>
+                    item.ruleType === rule.ruleType &&
+                    item.ruleValue.toLowerCase() ===
+                    rule.ruleValue.toLowerCase()
+            )
+        ) {
+            message(
+                'page-status',
+                'That rule is already listed.',
+                true
+            );
+            return;
+        }
+
+        if (rules.length >= 50) {
+            message(
+                'page-status',
+                'At most 50 rules are allowed.',
+                true
+            );
+            return;
+        }
+
+        rules.push(rule);
+
+        renderRules();
+
+        document.getElementById('rule-value').value = '';
+
+        message(
+            'page-status',
+            'Rule added to draft. Save preferences to apply it.'
+        );
+    });
+
+    document.getElementById('rules-list').addEventListener('click', event => {
+        const button = event.target.closest('[data-remove-rule]');
+
+        if (!button) return;
+
+        rules.splice(
+            Number(button.dataset.removeRule),
+            1
+        );
+
+        renderRules();
+
+        message(
+            'page-status',
+            'Rule removed from draft. Save preferences to apply it.'
+        );
+    });
+
+    document.getElementById('save-rules').addEventListener(
+        'click',
+        event => action(
+            event.target,
+            'page-status',
+            async () => {
+                requireUser();
+
+                rules = (
+                    await PantryAPI.replaceRules(rules)
+                ).data.rules.map(
+                    ({ ruleType, ruleValue }) => ({
+                        ruleType,
+                        ruleValue
+                    })
+                );
+
+                renderRules();
+
+                message(
+                    'page-status',
+                    'Preferences saved. Run a search to apply them.'
+                );
+            }
+        )
+    );
+
     await state.ready;
     if (!state.user) {
         message('page-status', state.error?.message || 'Sign in to manage your pantry, or browse recipes in Explore.', Boolean(state.error));
         form.querySelectorAll('input, select, button').forEach(el => { el.disabled = true; });
         document.getElementById('refresh-matches').disabled = true;
+
+        document.querySelectorAll(
+            '#match-form input, #match-form button, ' +
+            '#rule-form input, #rule-form select, #rule-form button, ' +
+            '#save-rules'
+        ).forEach(el => {
+            el.disabled = true;
+        });
         return;
     }
     await action(null, 'page-status', async () => {
-        await loadPantry(); await loadMatches(); message('page-status', 'Pantry and suggestions loaded.');
+        await loadPantry(); 
+        await loadMatches(); 
+        
+        rules = (
+            await PantryAPI.rules()
+        ).data.rules.map(
+            ({ ruleType, ruleValue }) => ({
+                ruleType,
+                ruleValue
+            })
+        );
+
+        renderRules();
+
+        message('page-status', 'Pantry, suggestions, and preferences loaded.');
     });
 })();
