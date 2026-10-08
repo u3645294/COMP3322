@@ -4,7 +4,7 @@
 
 | Full name | Student number | Planned responsibilities |
 | --- | --- | --- |
-| Yuk Ki Ao | 3036452948 | ER diagram, ingredient matching and ranking, recipe and tag data scraping, AI integration (future). |
+| Yuk Ki Ao | 3036452948 | ER diagram, ingredient matching and ranking, recipe data scraping, ingredient/tag generation, AI integration (future). |
 | Li Yiting | 3036406119 | Backend architecture, REST API, MySQL integration, authentication, search, and Docker setup. |
 | Ou Yang Bing | 3036393099 | UI/UX design, responsive frontend pages, and the React single-page application. |
 | Esohe Osaghae | 3036718574 | Project proposal, frontend react migration and nice to have features, testing, technical doccumentation. |
