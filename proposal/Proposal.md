@@ -7,7 +7,7 @@
 | Yuk Ki Ao | 3036452948 | Must have:  ER diagram, ingredient matching and ranking, recipe and tag data; Future: investigate AI integration. |
 | Li Yiting | 3036406119 | Backend architecture, REST API, MySQL integration, authentication, search, testing, Docker setup, and technical documentation. |
 | Ou Yang Bing | 3036393099 | UI/UX design, responsive frontend pages, and the React single-page application. |
-| Esohe Osaghae | 3036718574 | Project proposal; backend/API work for the pantry and Explore pages, favorites, search history, dietary preferences, and related integration. |
+| Esohe Osaghae | 3036718574 | Project proposal; frontend work for the pantry and Explore pages, favorites, search history, dietary preferences, and related integration. |
 
 
 ## Project description
