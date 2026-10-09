@@ -29,7 +29,11 @@
                     throw error;
                 }
             }));
-            cards(document.getElementById('history-results'), results, recipe => `Rank ${recipe.rank} · ${recipe.coverage == null ? 'Coverage unavailable' : `${Math.round(recipe.coverage * 100)}% ingredients present at search time`}`);
+           cards(document.getElementById('history-results'), results, recipe => ({
+            percent: recipe.coverage == null ? 0 : Math.round(recipe.coverage * 100),
+            missing: [],
+            label: `Rank ${recipe.rank}`
+        }));
             message('page-status', 'Saved results reopened. Recipe details show the current catalog.');
         });
     });
