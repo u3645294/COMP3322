@@ -125,7 +125,9 @@ const pantrySql = `
 `;
 
 const eligibleSql = `
-  SELECT r.id, r.title, r.tags
+  SELECT r.id, r.title, r.tags,
+         r.description, r.difficulty, r.servings,
+         r.prep_minutes, r.cook_minutes, r.image_url
   FROM recipes AS r
   JOIN (
     SELECT recipe_id, MIN(id) AS main_row_id
@@ -152,7 +154,7 @@ const candidateSql = `
   preferred_ingredients AS (
     SELECT id FROM JSON_TABLE(?, '$[*]' COLUMNS (id BIGINT PATH '$')) AS preferred
   )
-  SELECT e.id AS recipeId, e.title,
+  SELECT e.id AS recipeId, e.title, e.description, e.difficulty, e.servings, e.prep_minutes, e.cook_minutes, e.image_url,
     ROUND(
       20 + 100 * SUM(CASE WHEN ri.optional = 0 AND p.ingredient_id IS NOT NULL
         AND (ri.quantity IS NULL OR
@@ -180,7 +182,8 @@ const candidateSql = `
   JOIN recipe_ingredients AS ri ON ri.recipe_id = e.id
   LEFT JOIN pantry AS p ON p.ingredient_id = ri.ingredient_id
   LEFT JOIN preferred_ingredients ON preferred_ingredients.id = ri.ingredient_id
-  GROUP BY e.id, e.title, e.tags
+  GROUP BY e.id, e.title, e.tags, e.description, e.difficulty, e.servings,
+    e.prep_minutes, e.cook_minutes, e.image_url
   HAVING SUM(ri.optional = 0) > 0
   ORDER BY recommendIndex DESC, e.id ASC
   LIMIT 20
@@ -191,9 +194,11 @@ const missingSql = `
   SELECT ri.recipe_id AS recipeId, ri.ingredient_id AS ingredientId,
     CASE WHEN p.ingredient_id IS NULL OR BINARY p.unit <> BINARY LOWER(ri.unit)
          THEN ri.quantity ELSE GREATEST(ri.quantity - p.amount, 0) END AS amount,
-    ri.unit
+    ri.unit,
+    i.canonical_name AS canonicalName
   FROM recipe_ingredients AS ri
   LEFT JOIN pantry AS p ON p.ingredient_id = ri.ingredient_id
+  JOIN ingredients AS i ON i.id = ri.ingredient_id
   WHERE ri.recipe_id IN (?) AND ri.optional = 0
     AND (p.ingredient_id IS NULL OR BINARY p.unit <> BINARY LOWER(ri.unit) OR p.amount < ri.quantity)
   ORDER BY ri.recipe_id, ri.id
@@ -202,7 +207,7 @@ const missingSql = `
 // Resolve liked IDs against recipes.id so nonexistent IDs cannot be returned.
 const fallbackSql = `
   WITH dietary_rules AS (${dietaryRulesSql})
-  SELECT r.id AS recipeId, r.title
+  SELECT r.id AS recipeId, r.title, r.description, r.difficulty, r.servings, r.prep_minutes, r.cook_minutes, r.image_url
   FROM recipes AS r
   JOIN JSON_TABLE(?, '$[*]' COLUMNS (
     position FOR ORDINALITY, id BIGINT PATH '$'
@@ -254,7 +259,8 @@ recipeMatchRouter.post("/", authenticate, asyncHandler(async (request, response)
   for (const row of missingRows) {
     missingByRecipe.get(row.recipeId)[row.ingredientId] = {
       amount: row.amount === null ? null : Number(row.amount),
-      unit: row.unit
+      unit: row.unit,
+      canonicalName: row.canonicalName
     };
   }
 
@@ -270,7 +276,15 @@ recipeMatchRouter.post("/", authenticate, asyncHandler(async (request, response)
       return {
         recipeId: row.recipeId,
         title: row.title,
+        description: row.description,
+        difficulty: row.difficulty,
+        servings: row.servings === null ? null : Number(row.servings),
+        prepMinutes: row.prep_minutes === null ? null : Number(row.prep_minutes),
+        cookMinutes: row.cook_minutes === null ? null : Number(row.cook_minutes),
+        imageUrl: row.image_url,
         missingIngredients: missingByRecipe.get(row.recipeId),
+        requiredCount: Number(row.requiredCount),
+        matchedCount: Number(row.matchedCount),
         tags: matchTags,
         recommendIndex: Number(row.recommendIndex)
       };

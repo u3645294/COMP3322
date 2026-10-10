@@ -49,13 +49,14 @@
         const match = await recipe_match({ pantry, liked_recipe_ids: [...state.favorites] });
         const recipes = match.status ? match.recipes : match.likedRecipes;
         const note = recipe => {
-            if (!match.status) return 'A saved favourite to try.';
-            const missing = Object.entries(recipe.missingIngredients).map(([id, item]) => {
-                const name = pantry.find(p => p.ingredientId === Number(id))?.canonicalName || `Ingredient #${id}`;
-                return `${name}: ${item.amount ?? 'unspecified amount'} ${item.unit || ''}`;
-            });
-            return `Score ${recipe.recommendIndex} · ${recipe.tags.join(', ')}${missing.length ? ` · Missing: ${missing.join('; ')}` : ''}`;
-        };
+        if (!match.status) return { percent: 0, missing: [], label: 'A saved favourite to try.' };
+        const missing = Object.entries(recipe.missingIngredients || {})
+            .map(([id, item]) => item.canonicalName || `Ingredient #${id}`);
+        const required = recipe.requiredCount ?? 0;
+        const matched = recipe.matchedCount ?? 0;
+        const percent = required > 0 ? Math.round((matched / required) * 100) : 0;
+        return { percent, missing };
+    };
         cards(document.getElementById('dishes-container'), match.status ? recipes.filter(recipe => recipe.tags.includes('perfect match')) : [], note);
         cards(document.getElementById('recommended-dishes-container'), match.status ? recipes.filter(recipe => !recipe.tags.includes('perfect match')) : recipes, note);
     }

@@ -31,14 +31,46 @@
     function heart(id, extraClass = 'fav-btn') {
         return `<button class="${extraClass}" data-favorite="${id}" type="button" aria-label="${favorites.has(id) ? 'Remove from' : 'Add to'} favourites">${favorites.has(id) ? '❤️' : '🤍'}</button>`;
     }
-    function card(recipe, note = '') {
+    function card(recipe, note = null) {
         const id = recipe.recipeId ?? recipe.id;
-        return `<article class="recipe-card"><div class="card-photo-wrap">
-            ${recipe.imageUrl && /^https?:\/\//.test(recipe.imageUrl) ? `<img class="card-photo" src="${escape(recipe.imageUrl)}" alt="${escape(recipe.title)}" loading="lazy">` : '<div class="card-placeholder" aria-hidden="true">🍲</div>'}
-            ${heart(id)}</div><div class="card-body"><h3 class="card-title"><a href="recipe.html?id=${id}">${escape(recipe.title)}</a></h3>
-            <p>${escape(recipe.description || '')}</p>
-            <p class="card-meta">${escape(recipe.difficulty || '')} ${recipe.servings ? `· ${escape(recipe.servings)} servings` : ''} ${recipe.prepMinutes != null && recipe.cookMinutes != null ? `· ${Number(recipe.prepMinutes) + Number(recipe.cookMinutes)} min` : ''}</p>
-            <p>${escape(note)}</p></div></article>`;
+
+        let body = '';
+        if (note && typeof note === 'object') {
+            const { percent = 0, missing = [], label = '' } = note;
+            const tier = percent >= 100 ? '' : percent >= 60 ? 'partial' : 'none';
+            body = `
+                <div class="match">
+                    <span>${percent}% of ingredients ready</span>
+                    <div class="match-bar">
+                        <div class="match-fill ${tier}" style="width:${percent}%"></div>
+                    </div>
+                </div>
+                ${missing.length ? `<p class="missing">Missing: ${missing.map(escape).join(', ')}</p>` : ''}
+                ${label ? `<p class="match-note">${escape(label)}</p>` : ''}
+            `;
+        } else if (typeof note === 'string' && note) {
+            body = `<p>${escape(note)}</p>`;
+        }
+
+        return `<article class="recipe-card">
+            <div class="card-photo-wrap">
+                ${recipe.imageUrl && /^https?:\/\//.test(recipe.imageUrl)
+                    ? `<img class="card-photo" src="${escape(recipe.imageUrl)}" alt="${escape(recipe.title)}" loading="lazy">`
+                    : '<div class="card-placeholder" aria-hidden="true">🍲</div>'}
+                ${heart(id)}
+            </div>
+            <div class="card-body">
+                <h3 class="card-title"><a href="recipe.html?id=${id}">${escape(recipe.title)}</a></h3>
+                <p>${escape(recipe.description || '')}</p>
+                <p class="card-meta">
+                    ${escape(recipe.difficulty || '')}
+                    ${recipe.servings ? `· ${escape(recipe.servings)} servings` : ''}
+                    ${recipe.prepMinutes != null && recipe.cookMinutes != null
+                        ? `· ${Number(recipe.prepMinutes) + Number(recipe.cookMinutes)} min` : ''}
+                </p>
+                ${body}
+            </div>
+        </article>`;
     }
     function cards(container, recipes, note = () => '') {
         container.innerHTML = recipes.length ? recipes.map(recipe => card(recipe, note(recipe))).join('') : '<p class="comments">No recipes found.</p>';
